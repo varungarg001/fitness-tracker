@@ -1,4 +1,4 @@
-package com.project.fitness.DTO;
+package com.project.fitness.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,12 +7,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class RegisterRequest {
+@NoArgsConstructor
+public class UserResponse {
 
+    private String id;
     private String email;
-    private String password;
     private String firstName;
     private String lastName;
+    private String createdAt;
+    private String updatedAt;
 }

@@ -1,26 +1,23 @@
-package com.project.fitness.service;
+package com.project.fitness.service.user;
 
 
-import com.project.fitness.DTO.RegisterRequest;
-import com.project.fitness.DTO.UserResponse;
+import com.project.fitness.dto.RegisterRequest;
+import com.project.fitness.dto.UserResponse;
 import com.project.fitness.model.User;
 import com.project.fitness.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.ZoneOffset;
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
 
     private final ModelMapper modelMapper;
 
+    @Override
     public UserResponse register(RegisterRequest request) {
 
 //        User user = new  User(
@@ -51,10 +48,12 @@ public class UserService {
         return convertToUserDto(userRepo.save(user));
     }
 
+    @Override
     public UserResponse getUser(String id){
         return convertToUserDto(userRepo.findById(id).orElse(null));
     }
 
+    @Override
     public UserResponse convertToUserDto(User user){
 
         return modelMapper.map(user,UserResponse.class);
