@@ -6,7 +6,7 @@ import com.project.fitness.model.User;
 
 public interface UserService {
 
-    public UserResponse register(RegisterRequest request);
-    public UserResponse getUser(String id);
+    UserResponse register(RegisterRequest request);
+    UserResponse getUser(String id);
     UserResponse convertToUserDto(User user);
 }

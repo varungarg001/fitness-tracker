@@ -24,11 +24,7 @@ public class ActivityServiceImpl implements  ActivityService {
 
     @Override
     public List<ActivityResponse> getActivitiesOfUser(String userId){
-        List<Activity> activitiesList = activityRepo
-                .findAll()
-                .stream()
-                .filter(activity->activity.getUser().getId().equals(userId))
-                .toList();
+        List<Activity> activitiesList = activityRepo.findByUserId(userId);
 
         return activitiesList.stream().map(this::mapToResponse).toList();
     }

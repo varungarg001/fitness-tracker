@@ -7,6 +7,7 @@ import com.project.fitness.model.Activity;
 import java.util.List;
 
 public interface ActivityService {
+
     List<ActivityResponse> getActivitiesOfUser(String userId);
 
     ActivityResponse trackActivity(ActivityRequest activityRequest);
