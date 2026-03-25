@@ -4,9 +4,11 @@ package com.project.fitness.service.user;
 import com.project.fitness.dto.RegisterRequest;
 import com.project.fitness.dto.UserResponse;
 import com.project.fitness.model.User;
+import com.project.fitness.model.UserRole;
 import com.project.fitness.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +18,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
 
     private final ModelMapper modelMapper;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponse register(RegisterRequest request) {
@@ -38,11 +42,14 @@ public class UserServiceImpl implements UserService {
 //
 //        );
 
+        UserRole userRole = request.getRole()!=null?request.getRole():UserRole.USER;
+
         User user = User.builder()
                 .email(request.getEmail())
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
-                .password(request.getPassword())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(userRole)
                 .build();
 
         return convertToUserDto(userRepo.save(user));
